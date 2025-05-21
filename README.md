@@ -1,6 +1,6 @@
 # Damn Vulnerable Raspberry Pi (DVRPi)
 
-<img src="[https://github.com/user-attachments/assets/18a4a5ad-4386-4c8f-b7f5-1d3423fda4c4](https://github.com/exploitsecurityio/DVRPi/blob/main/DVRPi.jpg)" height=50% width=50%)
+<img src="https://github.com/user-attachments/assets/18a4a5ad-4386-4c8f-b7f5-1d3423fda4c4" height=50% width=50%>
 
 ## Overview
 
