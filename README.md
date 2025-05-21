@@ -11,8 +11,10 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
 > Currently there is a single challenge (Low).
 > Step 1. Download the firmware
 > Step 2. Check Image Integrity
+>
 > - sha256sum rpi4-debian-firmware.img.xz and check against sha256sum rpi4-debian-firmware.img.xz.checksum.txt
-> Step 3. Place the SDCARD into your reader on host machine
+> 
+Step 3. Place the SDCARD into your reader on host machine
   > To find your SDCARD
   > ```
   > lsblk
