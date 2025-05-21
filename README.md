@@ -142,14 +142,14 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
     root@DVRPi:~#
     ```
 
-3. Retrieve the Flag:
+3. **Retrieve the Flag:**
 
   ```
   root@DVRPi:~# cat /root/flag.txt
   flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
   ```
 
-4. Exit the Console:
+4. **Exit the Console:**
 
   - Log out:
   
@@ -162,12 +162,14 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
 
 ## Technical Details
 
-  - Firmware Configuration:
+1, **Firmware Configuration:**
+   
    - UART is enabled in /boot/config.txt:
      
   ```
   enable_uart=1
   ```
+   
    - A root shell is provided via /etc/inittab:
   
   ```
@@ -176,12 +178,12 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   
    - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
 
-- Why Vulnerable:
+2. **Why Vulnerable:**
 
   - The UART interface lacks authentication, a common oversight in embedded devices designed for debugging [].
   - Developers often leave serial consoles enabled in production, assuming physical access is unlikely.
 
-- Real-World Relevance:
+3. **Real-World Relevance:**
 
   - UART attacks have been used to extract firmware from routers (e.g., Netgear vulnerabilities []) and bypass authentication in industrial systems [].
   - Physical access is often feasible in scenarios like misplaced devices or insider threats.
@@ -190,7 +192,7 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
 
 To prevent this vulnerability in production systems:
 
-1. Disable UART:
+1. **Disable UART:**
 
   - Set enable_uart=0 in /boot/config.txt or disable the serial console in /etc/inittab.
   - Example:
@@ -199,7 +201,7 @@ To prevent this vulnerability in production systems:
  sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
  ```
 
-2. Require Authentication:
+2. **Require Authentication:**
 
   - Configure a strong password for the serial console:
   
@@ -207,14 +209,14 @@ To prevent this vulnerability in production systems:
  passwd root
  ```
 
-3. Restrict Physical Access:
+3. **Restrict Physical Access:**
 
   - Use tamper-evident seals or enclosures to deter unauthorized access to GPIO pins.
 
-4. Monitor Debugging Interfaces:
+4. **Monitor Debugging Interfaces:**
 
   - Log serial console access attempts (requires custom kernel modules or hardware monitoring).
 
-5. Use Secure Boot:
+5. **Use Secure Boot:**
 
   - Implement secure boot to prevent unauthorized firmware modifications, even if UART access is gained.
