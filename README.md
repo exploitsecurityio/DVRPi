@@ -38,6 +38,7 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
     - Purchase a 3.3V-compatible adapter (e.g., CP2102, FT232R). Avoid 5V adapters to prevent damaging the Pi’s GPIO pins.
     - Example: Adafruit CP2102.
 2. **Install Serial Terminal Software:**
+   
    - On Linux:
      
      ```
@@ -48,4 +49,41 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
      ```
      brew install minicom
      ```
-     - Alternative: Use screen (pre-installed on most systems).
+   - Alternative: Use screen (pre-installed on most systems).
+
+4. **Identify the USB-to-TTL Adapter:**
+   
+    - Plug the adapter into your computer’s USB port.
+    - Check the device name:
+    ```
+    ls /dev/ttyUSB*  # Linux
+    ls /dev/tty.*     # macOS
+    ```
+  - Example output: /dev/ttyUSB0 (Linux) or /dev/tty.usbserial-XXXX (macOS).
+
+5. **Connect the Adapter to the Pi:**
+   
+  - Power off the Raspberry Pi 4B to avoid short circuits:
+    ```
+    sudo shutdown -h now
+    ```
+    - Locate GPIO pins 14 (TX, pin 8) and 15 (RX, pin 10) on the Pi’s 40-pin header (Pinout Reference).
+    - Connect the adapter to the Pi using jumper wires:
+    ```
+    Adapter GND → Pi GND (e.g., pin 6).
+    Adapter TX → Pi RX (GPIO 15, pin 10).
+    Adapter RX → Pi TX (GPIO 14, pin 8).
+    ```
+    **Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
+    Example wiring:
+    ```
+    USB-to-TTL Adapter    Raspberry Pi 4B
+    ------------------    ---------------
+    GND                  GND (pin 6)
+    TX                   GPIO 15 (pin 10)
+    RX                   GPIO 14 (pin 8)
+    ```
+
+6. **Power On the Pi:**
+   - Insert the SD card with the DVHA firmware.
+   - Power on the Pi using a USB-C power supply.
