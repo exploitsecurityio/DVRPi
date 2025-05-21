@@ -159,3 +159,62 @@ exit
 
 - Exit minicom: Press Ctrl-A, then X, and confirm.
 - For screen: Press Ctrl-A, then \, and confirm.
+
+## Technical Details
+
+- Firmware Configuration:
+ - UART is enabled in /boot/config.txt:
+   
+ ```
+ enable_uart=1
+ ```
+ - A root shell is provided via /etc/inittab:
+
+ ```
+ T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
+ ```
+
+ - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
+
+- Why Vulnerable:
+
+ - The UART interface lacks authentication, a common oversight in embedded devices designed for debugging [].
+ - Developers often leave serial consoles enabled in production, assuming physical access is unlikely.
+
+- Real-World Relevance:
+
+ - UART attacks have been used to extract firmware from routers (e.g., Netgear vulnerabilities []) and bypass authentication in industrial systems [].
+ - Physical access is often feasible in scenarios like misplaced devices or insider threats.
+
+## Mitigation Strategies
+
+To prevent this vulnerability in production systems:
+
+1. Disable UART:
+
+ - Set enable_uart=0 in /boot/config.txt or disable the serial console in /etc/inittab.
+ - Example:
+ 
+ ```
+ sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
+ ```
+
+2. Require Authentication:
+
+ - Configure a strong password for the serial console:
+
+ ```
+ passwd root
+ ```
+
+3. Restrict Physical Access:
+
+ - Use tamper-evident seals or enclosures to deter unauthorized access to GPIO pins.
+
+4. Monitor Debugging Interfaces:
+
+ - Log serial console access attempts (requires custom kernel modules or hardware monitoring).
+
+5. Use Secure Boot:
+
+ - Implement secure boot to prevent unauthorized firmware modifications, even if UART access is gained.
