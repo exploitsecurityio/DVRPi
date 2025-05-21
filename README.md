@@ -37,6 +37,8 @@ Step 5. Flash the image onto the SDCARD (using DD)
 
 Step 6. Insert SDCARD into RPi and Follow challenge steps
 
+**NOTE: Do NOT power on until all challenge details have been read**
+
 Website: [exploitsecurity.io](https://www.exploitsecurity.io)
 
 X: <a href="https://x.com/3xploit5ecurit7">Exploit Security on X</a>
