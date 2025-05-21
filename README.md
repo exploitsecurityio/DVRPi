@@ -22,7 +22,7 @@ Warning: DVHA is for educational use only. Do not deploy on production or intern
   - Basic Linux command-line knowledge.
   - Familiarity with serial communication concepts (baud rate, TX/RX).
 
-- **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a root shell accessible via <span style="color: red;">/etc/inittab</span>
+- **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a root shell accessible via <span style="color: green;">/etc/inittab</span>
   
 ## Background
 
