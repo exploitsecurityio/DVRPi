@@ -8,11 +8,17 @@ Warning: DVHA is for educational use only. Do not deploy on production or intern
 
 ## Challenge Details
 
-- Name: Unsecured UART Console
-- Difficulty: Low
-- Objective: Gain root access to the Raspberry Pi 4B via the serial console and retrieve a hidden flag.
-- Flag: DVHA_FLAG_UART:UART_ROOT_ACCESS
-- Tools Needed:
+- **Name:** Unsecured UART Console
+- **Difficulty:** Low
+- **Objective:** Gain root access to the Raspberry Pi 4B via the serial console and retrieve a hidden flag.
+- **Flag:** DVHA_FLAG_UART:UART_ROOT_ACCESS
+- **Tools Needed:**
   - USB-to-TTL serial adapter (e.g., CP2102 or FT232R, ~$5).
   - Serial terminal software (e.g., minicom or screen, free).
   - Jumper wires (optional, for connecting to GPIO pins).
+
+- **Prerequisites:**
+  - Basic Linux command-line knowledge.
+  - Familiarity with serial communication concepts (baud rate, TX/RX).
+
+- **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a root shell accessible via /etc/inittab.
