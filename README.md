@@ -31,10 +31,11 @@ Step 4. Umount the SDCARD
  umount /<mountpoint>/bootfs
  ```
 
-Step 5. Flash the image onto the SDCARD (using DD)
+Step 5. Uncompress and Flash the image onto the SDCARD (using DD)
 
   ```
-  xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
+  xz -d rpi4-debian-firmware.img.xz |
+  sudo dd if=rpi4-debian-firmware.img of=/dev/sdX bs=4M status=progress
   ```
 
 Step 6. Sync Writes
