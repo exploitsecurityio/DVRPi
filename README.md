@@ -11,14 +11,16 @@ Warning: DVHA is for educational use only. Do not deploy on production or intern
 - **Name:** Unsecured UART Console
 - **Difficulty:** Low
 - **Objective:** Gain root access to the Raspberry Pi 4B via the serial console and retrieve a hidden flag.
-- **Flag:** DVHA_FLAG_UART:UART_ROOT_ACCESS
+- **Flag:** flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
 - **Tools Needed:**
+  
   - USB-to-TTL serial adapter (e.g., CP2102 or FT232R, ~$5).
   - Serial terminal software (e.g., minicom or screen, free).
   - Jumper wires (optional, for connecting to GPIO pins).
   - Raspberry Pi 4B
 
 - **Prerequisites:**
+  
   - Basic Linux command-line knowledge.
   - Familiarity with serial communication concepts (baud rate, TX/RX).
 
@@ -35,9 +37,11 @@ In this challenge, the DVHA firmware is configured to provide a root shell over 
 Before starting, ensure you have the DVHA firmware flashed to an SD card and the Raspberry Pi 4B powered on. Follow these steps to set up your hardware and software:
 
 1. Acquire a USB-to-TTL Adapter:
+   
     - Purchase a 3.3V-compatible adapter (e.g., CP2102, FT232R). Avoid 5V adapters to prevent damaging the Pi’s GPIO pins.
     - Example: Adafruit CP2102.
-2. **Install Serial Terminal Software:**
+      
+3. **Install Serial Terminal Software:**
    
    - On Linux:
      
@@ -45,37 +49,47 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
      sudo apt update
      sudo apt install -y minicom
      ```
+     
    - On MAC:
+     
      ```
      brew install minicom
      ```
+     
    - Alternative: Use screen (pre-installed on most systems).
 
 4. **Identify the USB-to-TTL Adapter:**
    
     - Plug the adapter into your computer’s USB port.
     - Check the device name:
+      
     ```
     ls /dev/ttyUSB*  # Linux
     ls /dev/tty.*     # macOS
     ```
+    
   - Example output: /dev/ttyUSB0 (Linux) or /dev/tty.usbserial-XXXX (macOS).
 
 5. **Connect the Adapter to the Pi:**
    
   - Power off the Raspberry Pi 4B to avoid short circuits:
+    
     ```
     sudo shutdown -h now
     ```
+    
     - Locate GPIO pins 14 (TX, pin 8) and 15 (RX, pin 10) on the Pi’s 40-pin header (Pinout Reference).
     - Connect the adapter to the Pi using jumper wires:
+      
     ```
     Adapter GND → Pi GND (e.g., pin 6).
     Adapter TX → Pi RX (GPIO 15, pin 10).
     Adapter RX → Pi TX (GPIO 14, pin 8).
     ```
+    
     **Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
     Example wiring:
+    
     ```
     USB-to-TTL Adapter    Raspberry Pi 4B
     ------------------    ---------------
@@ -85,5 +99,53 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
     ```
 
 6. **Power On the Pi:**
+   
    - Insert the SD card with the DVHA firmware.
    - Power on the Pi using a USB-C power supply.
+
+## Exploitation Steps
+
+Follow these steps to exploit the unsecured UART console and retrieve the flag:
+
+1. **Launch the Serial Terminal:**
+   
+   - Open minicom with the correct device and baud rate (115200, standard for Raspberry Pi):
+
+   ```
+   minicom -b 115200 -o -D /dev/ttyUSB0
+   ```
+
+  - Replace /dev/ttyUSB0 with your adapter’s device name.
+  - If using screen:
+
+  ```
+  screen /dev/ttyUSB0 115200
+  ```
+
+- Settings (optional, in minicom):
+  - 8 data bits, no parity, 1 stop bit (8N1).
+  - Disable hardware/software flow control.
+
+2. **Access the Console:**
+
+  - Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
+
+  ```
+  Debian GNU/Linux 12 dvha ttyS0
+  DVRPi login:
+  ```
+
+  - The DVHA firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
+  
+  ```
+  root@DVRPi:~#
+  ```
+
+  3. Retrieve the Flag:
+
+  ```
+  root@DVRPi:~# cat /root/flag.txt
+  flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
+  ```
+
+
