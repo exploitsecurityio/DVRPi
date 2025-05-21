@@ -90,13 +90,13 @@ Before starting, ensure you have the DVRPi firmware flashed to an SD card and th
   **Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
   Example wiring:
   
-    ```
-    USB-to-TTL Adapter    Raspberry Pi 4B
-    ------------------    ---------------
-    GND                   GND (pin 6)
-    TX                    GPIO 15 (pin 10)
-    RX                    GPIO 14 (pin 8)
-    ```
+  ```
+  USB-to-TTL Adapter    Raspberry Pi 4B
+  ------------------    ---------------
+  GND                   GND (pin 6)
+  TX                    GPIO 15 (pin 10)
+  RX                    GPIO 14 (pin 8)
+  ```
 
 6. **Power On the Pi:**
    
