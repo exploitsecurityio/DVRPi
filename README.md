@@ -4,7 +4,7 @@
 
 Damn Vulnerable Raspberry Pi (DVRPi) is a Raspberry Pi 4B firmware designed to teach hardware hacking through intentional vulnerabilities. The Unsecured UART Console challenge introduces learners to serial communication and physical interface exploitation, a common entry point for attacking embedded devices like IoT systems, routers, and industrial controllers.
 
-Warning: DVHA is for educational use only. Do not deploy on production or internet-facing systems, as it contains intentional vulnerabilities that will lead to compromise.
+Warning: DVRPi is for educational use only. Do not deploy on production or internet-facing systems, as it contains intentional vulnerabilities that will lead to compromise.
 
 ## Challenge Details
 
@@ -30,11 +30,11 @@ Warning: DVHA is for educational use only. Do not deploy on production or intern
 
 **UART (Universal Asynchronous Receiver-Transmitter)** is a serial communication protocol used for debugging and interfacing with embedded systems. On the Raspberry Pi 4B, UART is exposed via GPIO pins 14 (TX) and 15 (RX), allowing direct communication with the system’s console. In real-world devices, unsecured UART interfaces often provide attackers with privileged access, as seen in cases like router firmware extractions [].
 
-In this challenge, the DVHA firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/flag.txt**.
+In this challenge, the DVRPi firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/flag.txt**.
 
 ## Setup Instructions
 
-Before starting, ensure you have the DVHA firmware flashed to an SD card and the Raspberry Pi 4B powered on. Follow these steps to set up your hardware and software:
+Before starting, ensure you have the DVRPi firmware flashed to an SD card and the Raspberry Pi 4B powered on. Follow these steps to set up your hardware and software:
 
 1. Acquire a USB-to-TTL Adapter:
    
@@ -100,7 +100,7 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
 
 6. **Power On the Pi:**
    
-   - Insert the SD card with the DVHA firmware.
+   - Insert the SD card with the DVRPi firmware.
    - Power on the Pi using a USB-C power supply.
 
 ## Exploitation Steps
@@ -131,11 +131,11 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   - Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
 
   ```
-  Debian GNU/Linux 12 dvha ttyS0
+  Debian GNU/Linux 12 DVRPi ttyS0
   DVRPi login:
   ```
 
-  - The DVHA firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
+  - The DVRPi firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
   
   ```
   root@DVRPi:~#
@@ -148,4 +148,13 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
   ```
 
+  4. Exit the Console:
 
+  - Log out:
+
+  ```
+  exit
+  ```
+
+  - Exit minicom: Press Ctrl-A, then X, and confirm.
+  - For screen: Press Ctrl-A, then \, and confirm.
