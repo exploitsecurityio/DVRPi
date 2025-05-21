@@ -23,6 +23,7 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
   
   - Basic Linux command-line knowledge.
   - Familiarity with serial communication concepts (baud rate, TX/RX).
+  - 
 
 - **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a root shell accessible via **/etc/inittab**.
   
@@ -30,7 +31,7 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
 
 **UART (Universal Asynchronous Receiver-Transmitter)** is a serial communication protocol used for debugging and interfacing with embedded systems. On the Raspberry Pi 4B, UART is exposed via GPIO pins 14 (TX) and 15 (RX), allowing direct communication with the system’s console. In real-world devices, unsecured UART interfaces often provide attackers with privileged access, as seen in cases like router firmware extractions [].
 
-In this challenge, the DVRPi firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/flag.txt**.
+In this challenge, the DVRPi firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in embedded or IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/flag.txt**.
 
 ## Setup Instructions
 
@@ -129,11 +130,11 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
 
 2. **Access the Console:**
 
-  - Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
+  - Upon connecting, you should see the Pi’s boot output, followed by a automatic login prompt:
   
     ```
     Debian GNU/Linux 12 DVRPi ttyS0
-    DVRPi login:
+    DVRPi login: (automatic login)
     ```
   
   - The DVRPi firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
@@ -170,10 +171,12 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   enable_uart=1
   ```
    
-   - A root shell is provided via /etc/inittab:
+   - Permissive service, where root shell is provided via the autologin service:
   
   ```
-  T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
+  cat /lib/systemd/system/serial-getty@service
+  [Service]
+  ExecStart=-/sbin/agetty --autologin root --keep-baud 115200,57600,38400,9600 %I $TERM 
   ```
   
    - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
@@ -198,7 +201,8 @@ To prevent this vulnerability in production systems:
   - Example:
   
  ```
- sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
+ cat /boot/config.txt
+ enable_uart=0
  ```
 
 2. **Require Authentication:**
