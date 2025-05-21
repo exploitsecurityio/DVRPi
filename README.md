@@ -1,5 +1,7 @@
 # Damn Vulnerable Raspberry Pi (DVRPi)
 
+![Leonardo_Phoenix_10_A_stylized_Raspberry_Pi_logo_appearing_wor_0](https://github.com/user-attachments/assets/18a4a5ad-4386-4c8f-b7f5-1d3423fda4c4)
+
 ## Overview
 
 Damn Vulnerable Raspberry Pi (DVRPi) is a Raspberry Pi 4B firmware designed to teach hardware hacking through intentional vulnerabilities. The Unsecured UART Console challenge introduces learners to serial communication and physical interface exploitation, a common entry point for attacking embedded devices like IoT systems, routers, and industrial controllers.
