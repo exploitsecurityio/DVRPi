@@ -31,7 +31,7 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
 
 **UART (Universal Asynchronous Receiver-Transmitter)** is a serial communication protocol used for debugging and interfacing with embedded systems. On the Raspberry Pi 4B, UART is exposed via GPIO pins 14 (TX) and 15 (RX), allowing direct communication with the system’s console. In real-world devices, unsecured UART interfaces often provide attackers with privileged access, as seen in cases like router firmware extractions [].
 
-In this challenge, the DVRPi firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in embedded or IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/flag.txt**.
+In this challenge, the DVRPi firmware is configured to provide a root shell over UART without requiring authentication, simulating a common misconfiguration in embedded or IoT devices. Your task is to connect to the UART interface, access the root shell, and retrieve a flag stored in **/root/.flag.txt**.
 
 ## Setup Instructions
 
@@ -146,7 +146,7 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
 3. **Retrieve the Flag:**
 
   ```
-  root@DVRPi:~# cat /root/flag.txt
+  root@DVRPi:~# cat .flag.txt
   flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
   ```
 
@@ -179,7 +179,7 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   ExecStart=-/sbin/agetty --autologin root --keep-baud 115200,57600,38400,9600 %I $TERM 
   ```
   
-   - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
+   - The flag is stored in /root/.flag.txt, readable only by root (but accessible due to the unsecured console).
 
 2. **Why Vulnerable:**
 
