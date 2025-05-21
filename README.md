@@ -35,7 +35,13 @@ Step 5. Flash the image onto the SDCARD (using DD)
   xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
   ```
 
-Step 6. Insert SDCARD into RPi and Follow challenge steps
+Step 6. Sync Writes
+
+ ```
+ sync
+ ```
+
+Step 7. Insert SDCARD into RPi and Follow challenge steps
 
 **NOTE: Do NOT power on until all challenge details have been read**
 
