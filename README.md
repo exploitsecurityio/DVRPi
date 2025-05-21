@@ -165,14 +165,14 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   - Firmware Configuration:
    - UART is enabled in /boot/config.txt:
      
-    ```
-    enable_uart=1
-    ```
+  ```
+  enable_uart=1
+  ```
    - A root shell is provided via /etc/inittab:
   
-    ```
-    T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
-    ```
+  ```
+  T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
+  ```
   
    - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
 
@@ -195,17 +195,17 @@ To prevent this vulnerability in production systems:
   - Set enable_uart=0 in /boot/config.txt or disable the serial console in /etc/inittab.
   - Example:
   
-   ```
-   sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
-   ```
+ ```
+ sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
+ ```
 
 2. Require Authentication:
 
   - Configure a strong password for the serial console:
   
-   ```
-   passwd root
-   ```
+ ```
+ passwd root
+ ```
 
 3. Restrict Physical Access:
 
