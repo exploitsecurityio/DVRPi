@@ -17,7 +17,7 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
   - USB-to-TTL serial adapter (e.g., CP2102 or FT232R, ~$5).
   - Serial terminal software (e.g., minicom or screen, free).
   - Jumper wires (optional, for connecting to GPIO pins).
-  - Raspberry Pi 4B
+  - Raspberry Pi 4B (w/SDCARD)
 
 - **Prerequisites:**
   
