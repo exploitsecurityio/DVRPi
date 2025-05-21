@@ -39,7 +39,13 @@ Before starting, ensure you have the DVHA firmware flashed to an SD card and the
     - Example: Adafruit CP2102.
 2. **Install Serial Terminal Software:**
    - On Linux:
+     
      ```
      sudo apt update
      sudo apt install -y minicom
      ```
+   - On MAC:
+     ```
+     brew install minicom
+     ```
+     - Alternative: Use screen (pre-installed on most systems).
