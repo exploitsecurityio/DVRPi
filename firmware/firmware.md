@@ -1,3 +1,3 @@
 # rpi4-debian-firmware.img.xz
 
-## Available [archive.org](https://archive.org/details/rip4-debian-firmware.img)
+## Available [SourceForge.net](https://sourceforge.net/projects/dvrpi/files/firmware/rpi4-debian-firmware.img.xz/download)
