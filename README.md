@@ -51,3 +51,10 @@ Step 7. Insert SDCARD into RPi and Follow challenge steps
 Website: [exploitsecurity.io](https://www.exploitsecurity.io)
 
 X: <a href="https://x.com/3xploit5ecurit7">Exploit Security on X</a>
+
+---
+
+**Author**: [Exploit Security Team](https://www.exploitsecurity.io)  
+**License**: GPL V3.0  
+**Repository**: [DVRPi GitHub](https://github.com/exploitsecurityio/DVRPi)  
+**Last Updated**: May 23, 2025
