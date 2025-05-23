@@ -52,6 +52,8 @@ Website: [exploitsecurity.io](https://www.exploitsecurity.io)
 
 X: <a href="https://x.com/3xploit5ecurit7">Exploit Security on X</a>
 
+[![Connect](https://img.shields.io/badge/Connect-LinkdIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/exploitsecurityio)
+
 ---
 
 **Author**: [Exploit Security Team](https://www.exploitsecurity.io)  
