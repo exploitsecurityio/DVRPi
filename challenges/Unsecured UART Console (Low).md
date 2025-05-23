@@ -16,13 +16,13 @@
   - Basic Linux command-line knowledge.
   - Familiarity with serial communication concepts (baud rate, TX/RX).
 
-- **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a low privileged shell accessible via **/etc/inittab**.
+- **Location in Firmware:** The UART interface is enabled on GPIO pins 14 (TX) and 15 (RX), with a root level shell accessible via **/etc/inittab**.
   
 ## Background
 
 **UART (Universal Asynchronous Receiver-Transmitter)** is a serial communication protocol used for debugging and interfacing with embedded systems. On the Raspberry Pi 4B, UART is exposed via GPIO pins 14 (TX) and 15 (RX), allowing direct communication with the system’s console. In real-world devices, unsecured UART interfaces often provide attackers with privileged access, as seen in cases like router firmware extractions [].
 
-In this challenge, the DVRPi firmware is configured to provide a low privileged shell over UART without requiring authentication, simulating a common misconfiguration in embedded or IoT devices. Your task is to connect to the UART interface, access the shell, and retrieve a flag stored in **/home/dvrpi/.flag.txt**.
+In this challenge, the DVRPi firmware is configured to provide a root privileged shell over UART without requiring authentication, simulating a common misconfiguration in embedded or IoT devices. Your task is to connect to the UART interface, access the shell, and retrieve a flag stored in **/root/.flag.txt**.
 
 ## Setup Instructions
 
@@ -131,13 +131,13 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   - The DVRPi firmware is configured to provide a low privilege shell without a password, so you’ll be logged in directly as **dvrpi:**
   
     ```
-    dvrpi@DVRPi:~#
+    root@DVRPi:~#
     ```
 
 3. **Retrieve the Flag:**
 
   ```
-  dvrpi@DVRPi:~# cat .flag.txt
+  root@DVRPi:~# cat .flag.txt
   flag{DVRPi_FLAG_UART:UART_DVRPi_ACCESS}
   ```
 
@@ -167,10 +167,10 @@ Follow these steps to exploit the unsecured UART console and retrieve the flag:
   ```
   cat /lib/systemd/system/serial-getty@service
   [Service]
-  ExecStart=-/sbin/agetty --autologin dvrpi --keep-baud 115200,57600,38400,9600 %I $TERM 
+  ExecStart=-/sbin/agetty --autologin root --keep-baud 115200,57600,38400,9600 %I $TERM 
   ```
   
-   - The flag is stored in /home/dvrpi/.flag.txt, accessible due to the unsecured console).
+   - The flag is stored in /root/.flag.txt, accessible due to the unsecured console).
 
 2. **Why Vulnerable:**
 
@@ -201,7 +201,7 @@ To prevent this vulnerability in production systems:
   - Configure a strong password for the serial console:
   
  ```
- passwd dvrpi
+ passwd root
  ```
 
 3. **Restrict Physical Access:**
