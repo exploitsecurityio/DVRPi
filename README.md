@@ -50,7 +50,7 @@ Step 7. Insert SDCARD into RPi and Follow challenge steps
 
 Website: [exploitsecurity.io](https://www.exploitsecurity.io)
 
-X: <a href="https://x.com/3xploit5ecurit7">Exploit Security on X</a>
+[![Follow me on X](https://img.shields.io/badge/Follow-X-1DA1F2?logo=twitter&logoColor=white)](https://x.com/3xploit5ecurit7)
 
 [![Connect](https://img.shields.io/badge/Connect-LinkdIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/exploitsecurityio)
 
