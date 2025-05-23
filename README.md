@@ -48,6 +48,8 @@ Step 7. Insert SDCARD into RPi and Follow challenge steps
 
 **NOTE: Do NOT power on until all challenge details have been read**
 
+---
+
 [![Explore Now](https://img.shields.io/badge/Explore-Our_Site-blueviolet?logo=googlechrome&logoColor=white)](https://www.exploitsecurity.io)
 
 [![Follow me on X](https://img.shields.io/badge/Follow-X-1DA1F2?logo=twitter&logoColor=white)](https://x.com/3xploit5ecurit7)
