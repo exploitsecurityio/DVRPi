@@ -10,11 +10,11 @@ The Glitch Attack (GPIO) challenge simulates a fault injection attack on a Raspb
 **Note**: Persistent GPIO issues (pins 18, 16, 20 reading ~0V) suggest a damaged Pi. Test with a new Pi if GPIO 21 fails.
 
 ## Objective
-Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag (`flag{DVRPi_FLAG_GLITCH:TIMING_BYPASS}`) from the UART console using `minicom`, and submit it via the DVHA dashboard.
+Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag (`flag{DVRPi_FLAG_GLITCH:TIMING_BYPASS}`) from the UART console using `minicom`, and submit it via the DVRPi dashboard.
 
 ## Requirements
 - **Hardware**:
-  - Raspberry Pi 4B with DVHA firmware (v1.0 or later).
+  - Raspberry Pi 4B with DVRPi firmware (v1.0 or later).
   - USB-to-TTL serial adapter (e.g., CP2102, 3.3V) for UART output.
   - Jumper wire or push-button to short GPIO 21 to GND.
   - Multimeter to verify GPIO 21 voltage (~3.3V at boot).
@@ -24,7 +24,7 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
   - SSH client for system access.
   - Python 3 with `RPi.GPIO` for scripted short simulation (optional).
 - **Access**:
-  - DVHA firmware image (`rpi4-debian-firmware.img.xz`) from [SourceForge](https://sourceforge.net/projects/dvrpi/files/firmware/rpi4-debian-firmware.img.xz/download).
+  - DVRPi firmware image (`rpi4-debian-firmware.img.xz`) from [SourceForge](https://sourceforge.net/projects/dvrpi/files/firmware/rpi4-debian-firmware.img.xz/download).
   - Root access (UART console).
 
 ## Steps
@@ -69,7 +69,7 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
 
 1. Flash the DVRPi firmware to an SD card:
    ```bash
-   xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
+   xz -d rpi4-debian-firmware.img.xz | sudo dd if=rpi4-debian-firmware.img of=/dev/sdX bs=4M status=progress
    sync
    ```
 2. Boot the Pi and verify GPIO 21 voltage (~3.3V) with a multimeter.
@@ -145,7 +145,7 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
 - **Hardware Hacking Handbook**: Fault injection techniques.
 - **Raspberry Pi GPIO Documentation**: Pin configuration.
 - **Linux pinctrl Documentation**: Device Tree and pinctrl usage.
-- **DVRPi Documentation**: `/usr/share/dvha/docs/challenges/glitch.md`.
+- **DVRPi Documentation**: `/usr/share/DVRPi/docs/challenges/glitch.md`.
   
 ---
 
