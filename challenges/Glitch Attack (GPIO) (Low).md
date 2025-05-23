@@ -1,12 +1,11 @@
 # Glitch Attack (GPIO)
 
-- **Challenge ID**: 9
 - **Difficulty**: Low
 - **Category**: Hardware Hacking
 - **Skills Tested**: GPIO manipulation, fault injection
 
 ## Description
-The Glitch Attack (GPIO) challenge simulates a fault injection attack on a Raspberry Pi 4B. A binary (`/usr/bin/glitch_challenge`) monitors GPIO 21 (pin 40), pre-configured as an input with a pull-up resistor at boot, for a LOW signal triggered by shorting it to GND (pin 39). When detected, the binary outputs a flag to the UART console (`/dev/ttyS0`), pauses for 10 seconds, and exits. This challenge mimics real-world hardware vulnerabilities where physical manipulation bypasses security checks.
+The Glitch Attack (GPIO) challenge simulates a fault injection attack on a Raspberry Pi 4B. A binary (`/usr/bin/glitch`) monitors GPIO 21 (pin 40), pre-configured as an input with a pull-up resistor at boot, for a LOW signal triggered by shorting it to GND (pin 39). When detected, the binary outputs a flag to the UART console (`/dev/ttyS0`), pauses for 10 seconds, and exits. This challenge mimics real-world hardware vulnerabilities where physical manipulation bypasses security checks.
 
 **Note**: Persistent GPIO issues (pins 18, 16, 20 reading ~0V) suggest a damaged Pi. Test with a new Pi if GPIO 21 fails.
 
@@ -25,8 +24,8 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
   - SSH client for system access.
   - Python 3 with `RPi.GPIO` for scripted short simulation (optional).
 - **Access**:
-  - DVHA firmware image (`dvha-firmware.img.xz`) from [SourceForge](https://sourceforge.net/projects/dvha/).
-  - Root access via SSH (UART console login disabled).
+  - DVHA firmware image (`rpi4-debian-firmware.img.xz`) from [SourceForge](https://sourceforge.net/projects/dvrpi/files/firmware/rpi4-debian-firmware.img.xz/download).
+  - Root access (UART console).
 
 ## Steps
 1. **Set Up UART Monitoring**:
@@ -39,17 +38,10 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
      minicom -b 115200 -o -D /dev/ttyUSB0
      ```
 
-2. **Access the Pi via SSH**:
-   - Find the Pi’s IP using network scanning or DHCP logs.
-   - Connect:
-     ```bash
-     ssh root@<pi-ip>
-     ```
-
-3. **Run the Binary**:
+  3. **Run the Bash Script**:
    - Execute:
      ```bash
-     sudo /usr/bin/glitch_challenge
+     /root/glitch.sh
      ```
    - In `minicom`, expect:
      ```
@@ -60,11 +52,6 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
 
 4. **Trigger the Glitch**:
    - **Manual**: Briefly (1–2 seconds) connect a jumper wire or press a push-button between GPIO 21 (pin 40) and GND (pin 39).
-   - **Programmatic** (on a second Pi):
-     - Save and run `glitch_script.py` (see Source Code):
-       ```bash
-       python3 glitch_script.py
-       ```
 
 5. **Capture the Flag**:
    - In `minicom`, expect:
@@ -77,16 +64,12 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
      ```
    - Record the flag during the 10-second pause.
 
-6. **Submit the Flag**:
-   - Access the DVHA Flask dashboard (http://<pi-ip>:5000).
-   - Submit the flag: `flag{DVRPi_FLAG_GLITCH:TIMING_BYPASS}`.
-
 ## Solution
 **Spoiler Warning**: This section reveals the solution.
 
-1. Flash the DVHA firmware to an SD card:
+1. Flash the DVRPi firmware to an SD card:
    ```bash
-   xz -dc dvha-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
+   xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
    sync
    ```
 2. Boot the Pi and verify GPIO 21 voltage (~3.3V) with a multimeter.
@@ -94,13 +77,9 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
    ```bash
    minicom -b 115200 -o -D /dev/ttyUSB0
    ```
-4. SSH into the Pi:
+4. Run the bash script:
    ```bash
-   ssh root@<pi-ip>
-   ```
-5. Run the binary:
-   ```bash
-   sudo /usr/bin/glitch_challenge
+   ./glitch.sh
    ```
 6. Short GPIO 21 (pin 40) to GND (pin 39) for 1–2 seconds using a jumper wire.
 7. Capture the flag from `minicom` output and submit it via the dashboard.
@@ -126,12 +105,12 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
 - **Binary Fails to Run**:
   - Verify permissions:
     ```bash
-    ls -l /usr/bin/glitch_challenge
+    ls -l /usr/bin/glitch
     ```
     - Expect: `-rwxr-xr-x`
   - Check errors:
     ```bash
-    sudo /usr/bin/glitch_challenge
+    sudo /usr/bin/glitch
     ```
     - Look for `Cannot open /dev/mem`; ensure `sudo`.
 - **Initial GPIO 21 State Reads LOW**:
@@ -150,7 +129,6 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
       pinctrl get 21
       ```
       - Expect: `input pull-up`.
-      - Check `/boot/overlays/gpio21-pullup.dtbo` and `/boot/config.txt` (`dtoverlay=gpio21-pullup`).
     - **Test GPIO State**:
       ```bash
       gpio mode 21 in; gpio read 21
@@ -162,25 +140,16 @@ Short GPIO 21 (pin 40) to GND (pin 39) to trigger a LOW signal, capture the flag
         ```bash
         dmesg | grep voltage
         ```
-- **Incorrect Flag Output**:
-  - If garbled, recompile:
-    ```bash
-    ~/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-gcc -o glitch_challenge glitch_challenge.c
-    sudo cp glitch_challenge /mnt/rootfs/usr/bin/glitch_challenge
-    ```
 
 ## Resources
 - **Hardware Hacking Handbook**: Fault injection techniques.
 - **Raspberry Pi GPIO Documentation**: Pin configuration.
 - **Linux pinctrl Documentation**: Device Tree and pinctrl usage.
-- **DVHA Documentation**: `/usr/share/dvha/docs/challenges/glitch.md`.
-
-## Submission
-Submit the flag via the DVHA Flask dashboard (http://<pi-ip>:5000). Share solutions on DVHA GitHub discussions.
-
+- **DVRPi Documentation**: `/usr/share/dvha/docs/challenges/glitch.md`.
+  
 ---
 
-**Author**: DVHA Team  
-**License**: MIT  
-**Repository**: [DVHA GitHub](https://github.com/dvha/dvha)  
+**Author**: Exploit Security Team  
+**License**: GPL V3.0  
+**Repository**: [DVRPi GitHub](https://github.com/exploitsecurityio/DVRPi)  
 **Last Updated**: May 23, 2025
