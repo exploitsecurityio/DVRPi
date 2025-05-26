@@ -26,7 +26,8 @@ Step 3. Place the SDCARD into your reader on host machine
 
 **Recommended SDCARD Size: 64GB**
 
-- To find your SDCARD
+- Locate your SDCARD
+  
    ```
    lsblk
    ```
@@ -44,6 +45,7 @@ Step 5. Sync Writes
  ```
 
 Step 6. Umount the SDCARD
+
  ```
  umount /<mountpoint>/rootfs
  umount /<mountpoint>/bootfs
