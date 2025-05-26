@@ -27,12 +27,12 @@ Step 3. Place the SDCARD into your reader on host machine
    ```
    lsblk
    ```
+   
+Step 4. Uncompress and Flash the image onto the SDCARD (using DD)
 
-Step 4. Umount the SDCARD
- ```
- umount /<mountpoint>/rootfs
- umount /<mountpoint>/bootfs
- ```
+  ```
+  xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
+  ```
 
 Step 5. Sync Writes
 
@@ -40,11 +40,11 @@ Step 5. Sync Writes
  sync
  ```
 
-Step 6. Uncompress and Flash the image onto the SDCARD (using DD)
-
-  ```
-  xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
-  ```
+Step 6. Umount the SDCARD
+ ```
+ umount /<mountpoint>/rootfs
+ umount /<mountpoint>/bootfs
+ ```
 
 Step 7. Insert SDCARD into RPi and Follow challenge steps
 
