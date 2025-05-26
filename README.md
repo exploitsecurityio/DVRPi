@@ -24,9 +24,9 @@ Validate against checksum.txt
  
 Step 3. Place the SDCARD into your reader on host machine (
 
-**NOTE: 
-- Minimum sdcard size required: 8GB.
-- Recommended: 16GB**
+**NOTE:**
+ - Minimum sdcard size required: 8GB.
+ - Recommended: 16GB
 
 - To find your SDCARD
    ```
