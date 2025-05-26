@@ -22,7 +22,10 @@ sha256sum rpi4-debian-firmware.img.xz
 Validate against checksum.txt
 ```
  
-Step 3. Place the SDCARD into your reader on host machine (NOTE: Minimum sdcard size required: 8GB)
+Step 3. Place the SDCARD into your reader on host machine (
+
+**NOTE: Minimum sdcard size required: 8GB. Recommended: 16GB**
+
 - To find your SDCARD
    ```
    lsblk
