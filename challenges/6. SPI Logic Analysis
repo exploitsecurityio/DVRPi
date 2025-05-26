@@ -1,0 +1,28 @@
+# SPI Logic Analysis
+
+## Overview
+- **Name**: SPI Logic Analysis
+- **Category**: Debugging
+- **Difficulty**: Low
+- **Objective**: Capture a clear-text flag transmitted over the DVRPi’s SPI interface using a logic analyzer.
+
+## Description
+A user-space program on the **Damn Vulnerable Raspberry Pi (DVRPi)** transmits a flag over SPI0 (GPIO 8-11, pins 24, 19, 21, 23) in clear text. 
+The flag is not easily readable in the filesystem, requiring hardware analysis to capture it from the MOSI line.
+
+## Prerequisites
+- DVRPi with Raspberry Pi OS.
+- Logic analyzer (e.g., Saleae Logic, Sigrok-compatible) with ≥4 channels.
+
+## Setup Instructions
+1. Flash `rpi4-dvrpi.img.xz` to an SD card.
+2. Connect a logic analyzer to SPI pins:
+   - CE0: Pin 24 (GPIO 8)
+   - MOSI: Pin 19 (GPIO 10)
+   - SCLK: Pin 23 (GPIO 11)
+   - Ground: Pin 6
+3. Boot the DVRPi and access via UART.
+
+## Notes
+- GPIO pin 24 (CE0) may be faulty (~0.35V); test or replace the Pi.
+
