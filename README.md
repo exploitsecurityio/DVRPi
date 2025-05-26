@@ -10,7 +10,8 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
 
 ### Getting Started
 
-Multiple Challenges to attempt. Write-ups available.
+- Multiple Challenges to attempt.
+- Write-ups available.
 
 Step 1. Download the firmware
 
@@ -33,17 +34,17 @@ Step 4. Umount the SDCARD
  umount /<mountpoint>/bootfs
  ```
 
-Step 5. Uncompress and Flash the image onto the SDCARD (using DD)
-
-  ```
-  xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
-  ```
-
-Step 6. Sync Writes
+Step 5. Sync Writes
 
  ```
  sync
  ```
+
+Step 6. Uncompress and Flash the image onto the SDCARD (using DD)
+
+  ```
+  xz -dc rpi4-debian-firmware.img.xz | sudo dd of=/dev/sdX bs=4M status=progress
+  ```
 
 Step 7. Insert SDCARD into RPi and Follow challenge steps
 
