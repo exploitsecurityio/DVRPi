@@ -19,7 +19,7 @@ Step 2. Check Image Integrity
 
 ```
 sha256sum rpi4-debian-firmware.img.xz
-Check against **rpi4-debian-firmware.img.xz.checksum.txt**
+Check against rpi4-debian-firmware.img.xz.checksum.txt
 ```
  
 Step 3. Place the SDCARD into your reader on host machine
