@@ -22,7 +22,7 @@ sha256sum rpi4-debian-firmware.img.xz
 Validate against checksum.txt
 ```
  
-Step 3. Place the SDCARD into your reader on host machine
+Step 3. Place the SDCARD into your reader on host machine (NOTE: Image tested with 64GB sdcard)
 - To find your SDCARD
    ```
    lsblk
