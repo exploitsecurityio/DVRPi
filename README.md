@@ -10,7 +10,7 @@ Warning: DVRPi is for educational use only. Do not deploy on production or inter
 
 ### Getting Started
 
-Currently there is a single challenge level (Low). More to come ...
+Multiple Challenges to attempt. Write-ups available.
 Step 1. Download the firmware
 Step 2. Check Image Integrity
 
