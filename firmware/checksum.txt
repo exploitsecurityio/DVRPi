@@ -1,1 +1,1 @@
-3e0a8f6930667a2ed4b2689ec977bc29cb7b16bf73f24578f920e92b1c7cbc08  rpi4-debian-firmware.img.xz 
+e7bcdefa5e321df7550d75c8f3482d3f872157ba4402fee3c215e93f89394272  rpi4-debian-firmware.img.xz 
