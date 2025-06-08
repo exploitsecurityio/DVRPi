@@ -63,7 +63,7 @@ Step 7. Insert SDCARD into RPi and Follow challenge steps
 
 [![Connect](https://img.shields.io/badge/Connect-LinkdIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/exploitsecurityio)
 
-[![Join us on Discord](https://img.shields.io/badge/Join-Discord-5865F2?logo=discord&logoColor=white)](https://discord.gg/FvvRWhmr)
+[![Join us on Discord](https://img.shields.io/badge/Join-Discord-5865F2?logo=discord&logoColor=white)](https://discord.gg/hJRmM2Sj)
 
 ---
 
